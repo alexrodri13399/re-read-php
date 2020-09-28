@@ -24,27 +24,35 @@
       <a href="libros.php">Libros</a>
       <a href="ebooks.php">eBooks</a>
     </div>
-
+  
     <h3>Toda la actualidad en eBooks.</h3>
     <!--Ebooks con descripcion-->
-    <div class="ebook">
-      <a href="https://www.amazon.es/petici%C3%B3n-Olivia-Abril-Camino-ebook/dp/B07XP67G28/ref=sr_1_4?dchild=1&qid=1600860231&refinements=p_n_binding_browse-bin%3A1462224031&s=books&sr=1-4"><img src="../img/ebook1.jpg" alt="ebook 1">
+    <!--<<div class="ebook">
+      a href="https://www.amazon.es/petici%C3%B3n-Olivia-Abril-Camino-ebook/dp/B07XP67G28/ref=sr_1_4?dchild=1&qid=1600860231&refinements=p_n_binding_browse-bin%3A1462224031&s=books&sr=1-4"><img src="../img/ebook1.jpg" alt="ebook 1">
       <div>La petición de Olivia</div></a>
-    </div>
-    <div class="ebook">
-      <a href="https://www.amazon.es/tinieblas-alba-precuela-pilares-Tierra-ebook/dp/B08B3P35BL/ref=sr_1_5?dchild=1&qid=1600860231&refinements=p_n_binding_browse-bin%3A1462224031&s=books&sr=1-5"><img src="../img/ebook2.jpg" alt="ebook 2">
-      <div>Las tinieblas y el alba</div></a>
-    </div>
-    <div class="ebook">
-      <a href="https://www.amazon.es/KYLE-Serie-Escoceses-n%C2%BA-4-ebook/dp/B08GTMN9NK/ref=sr_1_17?dchild=1&qid=1600860231&refinements=p_n_binding_browse-bin%3A1462224031&s=books&sr=1-17"><img src="../img/ebook3.jpg" alt="ebook 3">
-      <div>KYLE</div></a>
-    </div>
-    <div class="ebook">
-      <a href="https://www.amazon.es/Rey-blanco-Juan-G%C3%B3mez-Jurado-ebook/dp/B08C35GM6B/ref=sr_1_10?dchild=1&qid=1600860231&refinements=p_n_binding_browse-bin%3A1462224031&s=books&sr=1-10"><img src="../img/ebook4.jpg" alt="ebook 4">
-      <div>Rey blanco</div></a>
-    </div>
+    </div>-->
+    <?php 
+    // 1. Conexión con la base de datos.
+    include '../services/connection.php';
+
+    // 2. Selección y muestra de datos de la base de datos.
+    $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM Books WHERE eBook != 'o'");
+
+    if (!empty($result) && mysqli_num_rows($result) > 0) {
+    // datos de salida de cada fila (fila = row)
+      while ($row = mysqli_fetch_array($result)) {
+        echo "<div class='ebook'>";
+        // Añadimos la imagen a la página con la etiqueta img de HTML
+        echo "<img src=../img/".$row['img']." alt='".$row['Title']."'>";
+        // Aádimos el título a la pagina con la etiqueta h2 de HTML
+        //echo "<div class='desc'".$row['Title']." </div>";
+        echo "</div>";
+      }  
+    } else {
+      echo "o resultados";
+    }
+  ?>
   </div>
-  
   <div class="column right">
     <h3>Top Ventas</h3>
     <p>Cien años de soledad.</p>
