@@ -27,10 +27,7 @@
   
     <h3>Toda la actualidad en eBooks.</h3>
     <!--Ebooks con descripcion-->
-    <!--<<div class="ebook">
-      a href="https://www.amazon.es/petici%C3%B3n-Olivia-Abril-Camino-ebook/dp/B07XP67G28/ref=sr_1_4?dchild=1&qid=1600860231&refinements=p_n_binding_browse-bin%3A1462224031&s=books&sr=1-4"><img src="../img/ebook1.jpg" alt="ebook 1">
-      <div>La petición de Olivia</div></a>
-    </div>-->
+
     <?php 
     // 1. Conexión con la base de datos.
     include '../services/connection.php';
@@ -54,11 +51,24 @@
   ?>
   </div>
   <div class="column right">
-    <h3>Top Ventas</h3>
-    <p>Cien años de soledad.</p>
-    <p>Crónica de una muerte anunciada.</p>
-    <p>El otoño del patriarca.</p>
-    <p>El general en su laberinto..</p>
+  <h3>Top Ventas</h3>
+  <?php 
+    // 1. Conexión con la base de datos.
+    include '../services/connection.php';
+
+    // 2. Selección y muestra de datos de la base de datos.
+    $result = mysqli_query($conn, "SELECT Books.Title FROM Books WHERE Top = '1'");
+
+    if (!empty($result) && mysqli_num_rows($result) > 0) {
+    // datos de salida de cada fila (fila = row)
+      while ($row = mysqli_fetch_array($result)) {
+        // Añadimos la imagen a la página con la etiqueta img de HTML
+        echo "<p>".$row['Title']."</p>";
+      }  
+    } else {
+      echo "o resultados";
+    }
+    ?>
   </div>
 
 </div>
