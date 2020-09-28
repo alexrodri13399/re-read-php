@@ -37,13 +37,18 @@
 
     if (!empty($result) && mysqli_num_rows($result) > 0) {
     // datos de salida de cada fila (fila = row)
+    $i=0;
       while ($row = mysqli_fetch_array($result)) {
+        $i++;
         echo "<div class='ebook'>";
         // Añadimos la imagen a la página con la etiqueta img de HTML
         echo "<img src=../img/".$row['img']." alt='".$row['Title']."'>";
         // Aádimos el título a la pagina con la etiqueta h2 de HTML
-        //echo "<div class='desc'".$row['Title']." </div>";
+        echo "<div class='desc'>".$row['Description']." </div>";
         echo "</div>";
+        if ($i%3==0) {
+          echo "<div style='clear=both'></div>";
+        }
       }  
     } else {
       echo "o resultados";
