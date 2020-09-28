@@ -47,7 +47,7 @@
         echo "<div class='desc'>".$row['Description']." </div>";
         echo "</div>";
         if ($i%3==0) {
-          echo "<div style='clear=both'></div>";
+          echo "<div style='clear:both;'></div>";
         }
       }  
     } else {
