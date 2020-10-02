@@ -33,6 +33,8 @@
       <form action="ebooks.php" method="POST">
         <label for="fautor">Autor: </label>
         <input type="text" id="fautor" name="fautor" placeholder="Introduce el autor..">
+        <label for="ftitulo">Titulo: </label>
+        <input type="text" id="ftitulo" name="ftitulo" placeholder="Introduce el titulo..">
         <label for="country">Country</label>
         <?php
         // 1. Conexión con la base de datos.
@@ -52,11 +54,14 @@
     include '../services/connection.php';
     if (isset($_POST['fautor'])) {
       $autor=$_POST['fautor'];
+      $titulo=$_POST['ftitulo'];
       $pais=$_POST['country'];
+
       //filtrará los ebooks que se mostraran en la pagina.
-      $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM Books INNER JOIN BooksAuthors ON Books.Id = BooksAuthors.BookId INNER JOIN Authors ON BooksAuthors.AuthorId = Authors.Id WHERE Authors.Name LIKE '%$autor%' AND Authors.Country LIKE '$pais'");
+      $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM Books INNER JOIN BooksAuthors ON Books.Id = BooksAuthors.BookId INNER JOIN Authors ON BooksAuthors.AuthorId = Authors.Id WHERE Authors.Name LIKE '%$autor%' AND Books.Title LIKE '%$titulo%' AND Authors.Country LIKE '$pais'");
       // '%{$_POST['fautor']}%'
-      echo "El autor seleccionado es: ".$autor."</br>";
+      echo "El autor introducido es: ".$autor."</br>";
+      echo "El titulo introducido es: ".$titulo."</br>";
       echo "El pais seleccionado es: ".$pais."</br>";
 
     } else {
